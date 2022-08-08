@@ -20,7 +20,7 @@
 # Run installation:
 #
 # - Connect to wifi via: `# iwctl station wlan0 connect WIFI-NETWORK`
-# - Run: `# bash <(curl -sL https://git.io/maximbaz-install)`
+# - Run: `# bash <(curl -sL https://raw.githubusercontent.com/paxthemax/dotfiles/main/install.sh)`
 
 set -uo pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
@@ -75,7 +75,7 @@ timedatectl set-ntp true
 hwclock --systohc --utc
 
 echo -e "\n### Installing additional tools"
-pacman -Sy --noconfirm --needed git reflector terminus-font dialog wget
+pacman -Sy --noconfirm --needed git terminus-font dialog wget
 
 echo -e "\n### HiDPI screens"
 noyes=("Yes" "The font is too small" "No" "The font size is just fine")
@@ -106,9 +106,6 @@ luks_header_device=$(get_choice "Installation" "Select disk to write LUKS header
 
 clear
 
-echo -e "\n### Setting up fastest mirrors"
-reflector --latest 30 --sort rate --save /etc/pacman.d/mirrorlist
-
 echo -e "\n### Setting up partitions"
 umount -R /mnt 2> /dev/null || true
 cryptsetup luksClose luks 2> /dev/null || true
@@ -121,7 +118,7 @@ part_root="$(ls ${device}* | grep -E "^${device}p?1$")"
 part_boot="$(ls ${device}* | grep -E "^${device}p?2$")"
 
 if [ "$device" != "$luks_header_device" ]; then
-    cryptargs="--header $arch-luks_header_device"
+    cryptargs="--header $luks_header_device"
 else
     cryptargs=""
     luks_header_device="$part_root"
@@ -170,6 +167,10 @@ if ! grep "${user}" /etc/pacman.conf > /dev/null; then
 [${user}-local]
 Server = file:///mnt/var/cache/pacman/${user}-local
 
+[paxthemax]
+SigLevel = Optional DatabaseOptional
+Server = https://raw.githubusercontent.com/paxthemax/arch-repo/main/x86_64
+
 [options]
 CacheDir = /mnt/var/cache/pacman/pkg
 CacheDir = /mnt/var/cache/pacman/${user}-local
@@ -177,7 +178,7 @@ EOF
 fi
 
 echo -e "\n### Installing packages"
-pacstrap -i /mnt base base-devel
+pacstrap -i /mnt paxthemax
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
@@ -202,15 +203,25 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems keyboard)
 EOF
 arch-chroot /mnt mkinitcpio -p linux
+arch-chroot /mnt arch-secure-boot initial-setup
 
 echo -e "\n### Configuring swap file"
 truncate -s 0 /mnt/swap/swapfile
 chattr +C /mnt/swap/swapfile
-btrfs property set /mnt/swap/swapfile compression none
+btrfs property set /mnt/swap/swapfile compression ""
 dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=4096
 chmod 600 /mnt/swap/swapfile
 mkswap /mnt/swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /mnt/etc/fstab
+
+echo -e "\n### Setting up sudoers override"
+mkdir -p /etc/sudoers.d/
+cat >> /mnt/etc/sudoers.d/override << EOF
+Defaults timestamp_timeout=0
+Defaults passwd_timeout=0
+
+%wheel ALL=(ALL) ALL
+EOF
 
 echo -e "\n### Creating user"
 arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
@@ -225,6 +236,16 @@ arch-chroot /mnt passwd -dl root
 echo -e "\n### Setting permissions on the custom repo"
 arch-chroot /mnt chown -R "$user:$user" "/var/cache/pacman/${user}-local/"
 
-echo -e "\n### DONE - read POST_INSTALL.md for tips on configuring your setup"
+echo -e "\n### Cloning dotfiles"
+arch-chroot /mnt sudo -u $user bash -c 'git clone --recursive https://github.com/paxthemax/dotfiles.git ~/.dotfiles'
+
+echo -e "\n### Running initial setup"
+arch-chroot /mnt /home/$user/.dotfiles/setup-system.sh
+# TODO: set up user dotfiles
+# arch-chroot /mnt sudo -u $user /home/$user/.dotfiles/setup-user.sh
+arch-chroot /mnt sudo -u $user zsh -ic true
+
+echo -e "\n### DONE - reboot and re-run both ~/.dotfiles/setup-*.sh scripts"
+echo -e "\n### Read POST_INSTALL.md for tips on configuring your setup"
 echo -e "\n### Reboot now, and after power off remember to unplug the installation USB"
 umount -R /mnt
