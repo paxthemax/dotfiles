@@ -1,0 +1,12 @@
+## Sway config
+#
+# Author: Pavle Batuta <pavle@batuta.xyz>, maximbaz
+#
+
+# Confuration stored by sections in 'config.d':
+include ./config.d/*
+
+# Load global configs (systemd integration etc.):
+include /etc/sway/config.d/*
+exec systemctl --user start sway-session.target
+
