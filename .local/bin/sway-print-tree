@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p "$XDG_DATA_HOME"/sway-tree
+swaymsg -t get_tree > "$XDG_DATA_HOME"/sway-tree/sway-tree-"$(date -Iseconds | cut -d'+' -f1)".json

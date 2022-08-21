@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+# Description:	Set the idle timeout lock and a lock on sleep with swayidle.
+# Author: 	Pavle Batuta <pavle@batuta.xyz>
+
+lockT="${SWAYIDLE_LOCK_TIMEOUT:-100}"
+screenT="${SWAYIDLE_SCREEN_TIMEOUT:-130}"
+suspendT="${SWAYIDLE_SUSPEND_TIMEOUT:-300}"
+
+statedir="${XDG_STATE_HOME:-$HOME/.local/state/}"
+mkdir -p "$statedir"
+
+swayidle -w \
+	timeout "$lockT" 'lock' \
+	timeout "$screenT" 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+	timeout "$suspendT" 'sway-exit suspend' \
+	after-resume 'swaymsg "output * dpms on"' \
+	before-sleep 'lock' \
+	  2> "$statedir/sway-idle-lock.log"
+

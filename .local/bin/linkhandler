@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Name: 	linkhandler
+# Author: 	Pavle Batuta <pavle@batuta.xyz>
+#		Inspired by Luke Smith
+# Description:	Handle urls and locations using different programs.
+
+main="${MAIN_BROWSER:-firefox}"
+alt="${ALT_BROWSER:-brave}"
+video="${VIDEO_PLAYER:-mpv}"
+
+# If no argument given: handle using $BROWSER.
+[ -z "$1" ] && { "$BROWSER"; exit; }
+
+case "$1" in
+	*mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtu.be*)
+		setsid -f "$video" -quiet "$1" >/dev/null 2>&1;;
+	*google.com*|*miro.com*|*figma.com*)
+		setsid -f "$alt" "$1" >/dev/null 2>&1 ;;
+	*)
+		setsid -f "$main" "$1" >/dev/null 2>&1 ;;
+esac
+

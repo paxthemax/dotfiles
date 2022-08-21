@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Description:	display recording icon on waybar if `wf-recorder` is running
+# Dependencies:	wf-recorder
+# Author:	Pavle Batuta <pavle@batuta.xyz>, maximbaz
+
+if pgrep -x wf-recorder >/dev/null; then
+    printf '{"text": "  "}\n'
+else
+    printf '{"text": ""}\n'
+fi
+

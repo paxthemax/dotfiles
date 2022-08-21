@@ -1,0 +1,19 @@
+#!/bin/env bash
+
+# File:		cglaunch
+# Description:	Launch a command as a transient service with systemd-run
+# Author: 	Pavle Batuta <pavle@batuta.xyz>, maximbaz
+
+if [ "$1" = "--term" ]; then
+    shift
+
+    title="${1##*/}"
+    title="${title:-kitty}"
+    app="kitty --class $title"
+else
+    title="${1##*/}"
+    args="--scope"
+fi
+
+exec systemd-run --quiet --no-block --user --slice app.slice --unit "launch-$title-$(date '+%s%N')" $args -- $app "$@"
+

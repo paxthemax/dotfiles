@@ -1,0 +1,3 @@
+#!/bin/sh
+
+code-oss --no-sandbox --unity-launch --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"

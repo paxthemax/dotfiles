@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Description: record an area of the screen with wf-recorder
+# Dependencies: wf-recorder, slurp, waybar, timestamp (local script)
+
+if ! pkill -x wf-recorder -SIGINT; then {
+    mkdir -p "$HOME/videos/screen-capture"
+    name="screen-capture-$(timestamp).mkv"
+    
+    # If there are any modifiers to window transparency, stop them here
+   
+    notify-send -t 2000 'Screen recording' 'Recording has started'
+
+    { sleep 1 && pkill -RTMIN+3 -x waybar; }
+    wf-recorder -f "$HOME/videos/screen-capture/$name"
+    pkill -RTMIN+3 -x waybar # Notify waybar-recording
+
+    ln -sf "$HOME/videos/screen-capture/$name" "$HOME/videos/screen-capture.mkv"
+
+    notify-send 'Screen recording' "Recording is ready: $HOME/videos/screen-capture/$name"
+} & fi

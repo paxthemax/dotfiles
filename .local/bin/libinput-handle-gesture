@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# File: libinput-handle-gesture
+# Description: perform actions based on libinput gestures and the current
+#              focused window in sway
+# Author: Pavle Batuta <pavle@batuta.xyz>, maximbaz
+
+error() {
+  echo >&2 "$*"
+  exit 1
+}
+
+[ $# -gt 0 ] || error "Usage: $0 <action> (e.g. $0 swipe-3-left_up)"
+
+app="$(swaymsg -t get_tree | jq -r '..|try select(.focused == true).app_id')"
+
+case "$app" in
+  *)
+    case "$1" in
+      swipe-3-left)
+        swaymsg workspace prev
+	;;
+      swipe-3-right)
+        swaymsg workspace next
+	;;
+      *)
+	error "Unknown action '$1' for program '$app'"
+	;;
+    esac
+    ;;
+esac

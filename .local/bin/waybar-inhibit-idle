@@ -1,0 +1,35 @@
+#!/bin/sh
+
+marker="/tmp/waybar-inhibit-idle"
+
+show() {
+    if [ -e "$marker" ]; then
+        printf "{\"text\": \" <span foreground='#928374'></span> \", \"class\": \"on\"}\n"
+    else
+        printf "{\"text\": \" <span foreground='#928374'></span> \", \"class\": \"off\"}\n"
+    fi
+}
+
+on() {
+    systemctl --user stop sway-idle-lock.service
+    touch "$marker"
+    pkill -RTMIN+4 -x waybar
+}
+
+off() {
+    systemctl --user start sway-idle-lock.service
+    rm -f "$marker"
+    pkill -RTMIN+4 -x waybar
+}
+
+toggle() {
+    [ -e "$marker" ] && off || on
+}
+
+case "$1" in
+    on)		on ;;
+    off)	off ;;
+    toggle)	toggle ;;
+    '')		show ;;
+esac
+
