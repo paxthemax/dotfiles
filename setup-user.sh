@@ -54,12 +54,30 @@ link ".config/zsh/.zshenv"
 link ".config/zsh/.zshrc"
 link ".config/zsh/.p10k.zsh"
 
+link ".config/systemd/user/sway-session.target"
+link ".config/systemd/user/battery-low-notify.service"
+link ".config/systemd/user/polkit-gnome.service"
+link ".config/systemd/user/systembus-notify.service"
+link ".config/systemd/user/udiskie.service"
+link ".config/systemd/user/swayr.service"
+link ".config/systemd/user/waybar.service"
+
 link ".config/git"
 
 link ".config/sway/config"
 link ".config/sway/config.d"
 
 link ".config/bat"
+link ".config/waybar"
+link ".config/swaylock"
+link ".config/kitty"
+link ".config/swaync"
+link ".config/tig"
+link ".config/mpv"
+link ".config/swappy"
+link ".config/xdg-desktop-portal-wlr"
+link ".config/gtk-3.0"
+link ".config/vimiv"
 
 link ".local/bin"
 link ".local/share/applications"
@@ -73,6 +91,14 @@ else
     echo "================================="
 
     systemctl --user daemon-reload
+
+    systemctl_enable_start "swaync.service"
+    systemctl_enable_start "battery-low-notify.service"
+    systemctl_enable_start "polkit-gnome.service"
+    systemctl_enable_start "systembus-notify.service"
+    systemctl_enable_start "udiskie.service"
+    systemctl_enable_start "waybar.service"
+    systemctl_enable_start "swayr.service"
 fi
 
 echo ""

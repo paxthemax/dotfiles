@@ -92,6 +92,7 @@ copy "etc/fwupd/uefi_capsule.conf"
 copy "etc/iwd/main.conf"
 copy "etc/pacman.conf" 644
 copy "etc/pacman.d/hooks"
+copy "etc/pam.d/polkit-1"
 copy "etc/snap-pac.ini"
 copy "etc/snapper/configs/root"
 copy "etc/ssh/ssh_config"
@@ -172,4 +173,5 @@ timedatectl set-ntp true
 
 echo "Configuring aurutils"
 mkdir -p /etc/aurutils
-ln -sf /etc/pacman.conf "/etc/aurutils/pacman-paxthemax-local.conf"
+ln -sf /etc/pacman.conf "/etc/aurutils/pacman-pax-local.conf"
+ln -sf /etc/pacman.conf "/etc/aurutils/pacman-$(uname -m).conf"

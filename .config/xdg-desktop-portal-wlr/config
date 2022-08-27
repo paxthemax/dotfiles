@@ -1,0 +1,5 @@
+[screencast]
+chooser_type=none
+exec_before=waybar-dnd on
+exec_after=waybar-dnd off
+

@@ -14,6 +14,9 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 # Update the gpg agent:
 gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
 
+# Update systemd environment:
+systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
+
 # Start sway:
 if [[ -z "$DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
   	# Run sway attached to systemd

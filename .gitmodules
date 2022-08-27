@@ -1,0 +1,6 @@
+[submodule ".config/mpv/uosc"]
+	path = .config/mpv/uosc
+	url = https://github.com/darsain/uosc/
+[submodule ".config/mpv/scripts/sponsorblock"]
+	path = .config/mpv/scripts/sponsorblock
+	url = https://github.com/maximbaz/mpv_sponsorblock.git

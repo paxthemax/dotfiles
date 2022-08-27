@@ -17,9 +17,10 @@ zstyle ':z4h:(fzf-complete|fzf-dir-history|fzf-history)' fzf-flags --no-exact --
 zstyle ':z4h:(fzf-complete|fzf-dir-history)' fzf-bindings 'tab:repeat'
 zstyle ':z4h:fzf-complete' find-flags -name '.git' -prune -print -o -print
 
-zstyle ':z4h:ssh:*' ssh-command kitty +kitten ssh
+zstyle ':z4h:ssh:*' enable no 
+zstyle ':z4h:ssh:*' ssh-command kitty command ssh
+zstyle ':z4h:ssh:*' term 'xterm-256-color'
 zstyle ':z4h:ssh:*' send-extra-files '~/.zsh-aliases'
-zstyle ':z4h:ssh:*' enable   
 
 zstyle ':zle:(up|down)-line-or-beginning-search' leave-cursor yes
 
@@ -101,8 +102,8 @@ setopt IGNORE_EOF
 
 ###
 
-[ -z "$EDITOR" ] && export EDITOR='vim'
-[ -z "$VISUAL" ] && export VISUAL='vim'
+[ -z "$EDITOR" ] && export EDITOR='nvim'
+[ -z "$VISUAL" ] && export VISUAL='nvim'
 
 export DIRENV_LOG_FORMAT=
 export FZF_DEFAULT_OPTS="--reverse --multi"
@@ -111,4 +112,5 @@ export SYSTEMD_LESS="${LESS}S"
 
 ###
 
+z4h source -- /usr/share/LS_COLORS/dircolors.sh
 z4h source -- $ZDOTDIR/.zsh-aliases
