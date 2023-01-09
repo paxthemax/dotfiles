@@ -69,6 +69,7 @@ link ".config/sway/config.d"
 
 link ".config/bat"
 link ".config/waybar"
+link ".config/wldash"
 link ".config/swaylock"
 link ".config/kitty"
 link ".config/swaync"
