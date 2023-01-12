@@ -1,0 +1,13 @@
+#!/bin/sh
+
+before_lock() {
+    playerctl -a pause
+    bluetoothctl disconnect
+}
+
+case "$1" in
+    *)
+        echo "Usage: $0 {tty|lock|suspend|reboot|shutdown}"
+        exit 2
+        ;;
+esac

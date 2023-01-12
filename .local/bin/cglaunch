@@ -24,5 +24,4 @@ else
     args="--scope"
 fi
 
-exec systemd-run --quiet --no-block --user --slice app.slice --unit "launch-$title-$(date '+%s%N')" $args -- $app "$@"
-
+exec systemd-run --quiet --user --scope  --slice app.slice --unit "launch-$title-$(date '+%s%N')" $args -- $app "$@"
