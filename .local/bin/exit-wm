@@ -1,9 +1,9 @@
 #!/bin/sh
 
-before_lock() {
-    playerctl -a pause
-    bluetoothctl disconnect
-}
+# before_lock() {
+#     playerctl -a pause
+#     bluetoothctl disconnect
+# }
 
 case "$1" in
     *)
