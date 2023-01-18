@@ -7,7 +7,9 @@ error() {
 
 [ $# -gt 0 ] || error "Usage: $0 <action> (e.g. $0 output-mute)"
 
-headphones_id="70:26:05:B0:A0:81"
+# Paired bluetooth audio:
+headset_id="20:74:CF:B2:51:31" # OpenComm by Shokz
+headphones_id="70:26:05:B0:A0:81" # WH-1000XM2
 speaker_id="00:42:79:A3:DF:37"
 
 default_p="a2dp-sink-ldac"  ## Set this to aptx-hd or LDAC per preference
@@ -23,7 +25,10 @@ case "$1" in
         echo "$new"
 	pactl set-card-profile "$bt_card" "$new"
 	notify-send -t 2000 "Switched audio profile" "$new"
-        ;;
+    ;;
+	bt-connect-headset)
+	bluetoothctl connect "$headset_id"
+	;;
     bt-connect-headphones) 
 	bluetoothctl connect "$headphones_id"
 	;;
