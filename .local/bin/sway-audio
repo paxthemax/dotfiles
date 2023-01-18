@@ -27,13 +27,13 @@ case "$1" in
 	notify-send -t 2000 "Switched audio profile" "$new"
     ;;
 	bt-connect-headset)
-	bluetoothctl connect "$headset_id"
+	bluetoothctl connect "$headset_id" || notify-send -u critical "Failed to connect to bluetooth headset"
 	;;
     bt-connect-headphones) 
-	bluetoothctl connect "$headphones_id"
+	bluetoothctl connect "$headphones_id" || notify-send -u critical "Failed to connect to bluetooth headphones"
 	;;
     bt-connect-speakers)  
-	bluetoothctl connect "$speaker_id"
+	bluetoothctl connect "$speaker_id" || notify-send -u critical "Failed to connect to bluetooth speaker"
 	;;
     bt-disconnect)         
         bluetoothctl disconnect "$headphones_id"; 
