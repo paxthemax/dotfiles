@@ -2,8 +2,8 @@
     "layer": "top",
     "height": 25,
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode"
+        "wlr/workspaces",
+        "hyprland/submap"
     ],
     "modules-right": [
         "custom/usbguard",
@@ -18,6 +18,10 @@
     ],
 
 
+    "wlr/workspaces": {
+        "sort-by-number": true,
+        "on-click": "activate"
+   },
     "custom/usbguard": {
         "exec": "waybar-usbguard",
         "return-type": "json",
@@ -46,9 +50,8 @@
         "format": "<span foreground='#928374'>{icon}</span> {percent}%",
         "format-icons": [""]
     },
-    "sway/language": {
-        "format": "{flag}",
-        "min-length": 2
+    "hyprland/language": {
+        "min-length": 3
     },
    "battery": {
         "states": {

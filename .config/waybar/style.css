@@ -27,7 +27,7 @@ window#waybar {
   border-bottom: 3px solid transparent;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   border-bottom: 3px solid @green;
 }
 
@@ -35,7 +35,7 @@ window#waybar {
   border-bottom: 3px solid @yellow;
 }
 
-#mode {
+#submap {
   background-color: @background;
   border-top: 3px solid @background;
   border-bottom: 3px solid @red;
@@ -75,7 +75,7 @@ window#waybar {
   border-bottom: 3px solid @green;
 }
 
-#mode,
+#submap,
 #pulseaudio,
 #custom-usbguard,
 #custom-yubikey,

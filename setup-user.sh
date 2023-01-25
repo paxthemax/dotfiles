@@ -64,8 +64,7 @@ link ".config/systemd/user/waybar.service"
 
 link ".config/git"
 
-link ".config/sway/config"
-link ".config/sway/config.d"
+link ".config/hypr/hyprland.conf"
 
 link ".config/bat"
 link ".config/waybar"

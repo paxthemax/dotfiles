@@ -20,7 +20,7 @@ systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
 # Start sway:
 if [[ -z "$DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
   	# Run sway attached to systemd
-	systemd-cat -t "sway" sway
+	systemd-cat -t "hyprland" Hyprland
 	systemctl --user stop graphical-session.target
 	systemctl --user unset-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 fi

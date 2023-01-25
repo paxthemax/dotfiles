@@ -1,11 +1,30 @@
 #!/bin/sh
 
-# before_lock() {
-#     playerctl -a pause
-#     bluetoothctl disconnect
-# }
+before_lock() {
+    playerctl -a pause
+    bluetoothctl disconnect
+}
 
 case "$1" in
+    tty)
+        systemctl --user stop hyprland-session.target
+        hyprctl keyword exit
+        ;;
+    lock)
+        before_lock
+        swaylock
+    ;;
+    suspend)
+        before_lock
+        systemctl -i suspend
+        swaylock
+        ;;
+    reboot)
+        systemctl -i reboot
+        ;;
+    shutdown)
+        systemctl -i poweroff
+        ;;
     *)
         echo "Usage: $0 {tty|lock|suspend|reboot|shutdown}"
         exit 2
