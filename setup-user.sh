@@ -33,7 +33,7 @@ is_chroot() {
 }
 
 systemctl_enable_start() {
-    echo "systemctl --user enable --now "$1""
+    echo "systemctl --user enable --now $1"
     systemctl --user enable --now "$1"
 }
 

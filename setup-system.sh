@@ -62,12 +62,12 @@ is_chroot() {
 }
 
 systemctl_enable() {
-    echo "systemctl enable "$1""
+    echo "systemctl enable $1"
     systemctl enable "$1"
 }
 
 systemctl_enable_start() {
-    echo "systemctl enable --now "$1""
+    echo "systemctl enable --now $1"
     systemctl enable "$1"
     systemctl start "$1"
 }
