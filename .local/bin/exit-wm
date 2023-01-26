@@ -1,21 +1,12 @@
 #!/bin/sh
 
-before_lock() {
-    playerctl -a pause
-    bluetoothctl disconnect
-}
-
 case "$1" in
-    tty)
-        systemctl --user stop hyprland-session.target
-        hyprctl keyword exit
-        ;;
     lock)
-        before_lock
         swaylock
     ;;
     suspend)
-        before_lock
+        playerctl -a pause
+        bluetoothctl disconnect
         systemctl -i suspend
         swaylock
         ;;
