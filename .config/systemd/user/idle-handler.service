@@ -1,0 +1,10 @@
+[Unit]
+Description=Lock and turn off the screen when idle
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/idle-handler
+
+[Install]
+WantedBy=graphical-session.target
