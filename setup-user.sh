@@ -54,7 +54,7 @@ link ".config/zsh/.zshenv"
 link ".config/zsh/.zshrc"
 link ".config/zsh/.p10k.zsh"
 
-link ".config/systemd/user/sway-session.target"
+link ".config/systemd/user/hyprland-session.target"
 link ".config/systemd/user/battery-low-notify.service"
 link ".config/systemd/user/polkit-gnome.service"
 link ".config/systemd/user/systembus-notify.service"
