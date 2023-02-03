@@ -203,6 +203,10 @@ grf() {
 
 ## pacman:
 
+repo-local-remove() {
+    repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "$@"
+}
+
 pac() {
     sudo -E pacman "$@" || return 1
 
