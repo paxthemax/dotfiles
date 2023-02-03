@@ -11,7 +11,7 @@
         "pulseaudio",
         "network",
         "backlight",
-        "sway/language",
+        "hyprland/language",
         "battery",
         "clock",
         "tray"
@@ -20,6 +20,7 @@
 
     "wlr/workspaces": {
         "sort-by-number": true,
+        "format": "{icon}",
         "on-click": "activate"
    },
     "custom/usbguard": {
