@@ -16,7 +16,7 @@ else
     [ -n "$failed_system" ] && tooltip="Failed system services:\n\n${failed_system}\n\n${tooltip}"
     [ -n "$failed_user" ]   && tooltip="Failed user services:\n\n${failed_user}\n\n${tooltip}"
 
-    tooltip="$(printf "$tooltip" | perl -pe 's/\n/\\n/g' | perl -pe 's/(?:\\n)+$//')"
+    tooltip="$(printf '%s '"$tooltip" | perl -pe 's/\n/\\n/g' | perl -pe 's/(?:\\n)+$//')"
 
     printf '{"text": " %s", "tooltip": "%s" }\n' "$text" "$tooltip"
 fi
