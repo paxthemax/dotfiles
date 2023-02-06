@@ -17,14 +17,12 @@
         "clock",
         "tray"
     ],
-
-
     "wlr/workspaces": {
         "sort-by-number": true,
         "format": "{icon}",
         "on-click": "activate"
-   },
-   "custom/systemd": {
+    },
+    "custom/systemd": {
         "exec": "waybar-systemd",
         "return-type": "json",
         "interval": 30
@@ -49,25 +47,33 @@
         "on-click": "swaync-client --toggle-dnd --skip-wait",
         "escape": true
     },
-   "clock": {
+    "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "<span foreground='#928374'></span> {:%a, %d %b  <span foreground='#928374'></span> %H:%M}"
     },
-   "backlight": {
+    "backlight": {
         "format": "<span foreground='#928374'>{icon}</span> {percent}%",
-        "format-icons": [""]
+        "format-icons": [
+            ""
+        ]
     },
     "hyprland/language": {
         "min-length": 3
     },
-   "battery": {
+    "battery": {
         "states": {
             "warning": 30,
             "critical": 15
         },
         "format": "<span foreground='#928374'>{icon}</span> {capacity}%",
         "format-charging": "<span foreground='#928374'></span> {capacity}%",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "network": {
         "interval": 2,
@@ -92,9 +98,12 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "on-click": "pavucontrol"
     }
 }
-
