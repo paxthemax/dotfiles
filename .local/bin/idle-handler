@@ -3,6 +3,6 @@
 sway-audio-idle-inhibit &
 
 swayidle -w \
-    timeout 300 'swaylock -f' \
-    timeout 600 'hyprctl dispatch dpms off' \
+    timeout 60 'swaylock -f' \
+    timeout 90 'hyprctl dispatch dpms off' \
     resume "hyprctl dispatch dpms on"
