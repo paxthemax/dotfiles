@@ -5,6 +5,10 @@
         "wlr/workspaces",
         "hyprland/submap"
     ],
+    "modules-center": [
+        "clock",
+        "custom/wttr"
+    ],
     "modules-right": [
         "custom/usbguard",
         "custom/systemd",
@@ -14,9 +18,15 @@
         "backlight",
         "hyprland/language",
         "battery",
-        "clock",
         "tray"
     ],
+    "custom/wttr" : {
+        "tooltip" : true,
+        "format" : "{}",
+        "restart-interval" : 300,
+        "exec" : "waybar-wttr",
+        "return-type" : "json"
+    },
     "wlr/workspaces": {
         "sort-by-number": true,
         "format": "{icon}",
