@@ -77,6 +77,7 @@ link ".config/tig"
 link ".config/mpv"
 link ".config/swappy"
 link ".config/xdg-desktop-portal-wlr"
+link ".config/xdg-desktop-portal-hyprland"
 link ".config/gtk-3.0"
 link ".config/vimiv"
 

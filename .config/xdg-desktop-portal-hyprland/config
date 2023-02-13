@@ -1,0 +1,7 @@
+[screencast]
+chooser_type=default
+max_fps=30
+chooser_cmd=slurp -f %o -or
+exec_before=waybar-dnd on
+exec_after=waybar-dnd off
+
