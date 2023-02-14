@@ -1,23 +1,41 @@
-#!/bin/sh
+#!/bin/env bash
+
+handle_suspend() {
+    playerctl -a pause
+    bluetoothctl disconnect
+    systemctl -i suspend
+    swaylock
+}
+
+handle_suspend_bat_only() {
+    status=$(cat /sys/class/power_supply/BAT0/status)
+    if [[ "$status" == "Discharging" ]]; then
+        # We are discharging, go to sleep:
+        handle_suspend
+    else
+        # We are on plugged in, darken the screen
+        hyprctl dispatch dpms off
+    fi
+}
 
 case "$1" in
     lock)
         swaylock
     ;;
     suspend)
-        playerctl -a pause
-        bluetoothctl disconnect
-        systemctl -i suspend
-        swaylock
-        ;;
+        handle_suspend
+    ;;
+    suspend-bat-only)
+        handle_suspend_bat_only
+    ;;
     reboot)
         systemctl -i reboot
-        ;;
+    ;;
     shutdown)
         systemctl -i poweroff
-        ;;
+    ;;
     *)
-        echo "Usage: $0 {tty|lock|suspend|reboot|shutdown}"
+        echo "Usage: $0 {tty|lock|suspend|suspend-bat-only|reboot|shutdown}"
         exit 2
-        ;;
+    ;;
 esac

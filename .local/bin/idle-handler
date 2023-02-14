@@ -1,8 +1,12 @@
-#!/bin/sh
+#!/bin/env bash
+
+# TODO: extract audio inhibit into a systemd daemon
+# TODO: extract a companion binary
 
 sway-audio-idle-inhibit &
 
 swayidle -w \
     timeout 60 'swaylock -f' \
-    timeout 90 'hyprctl dispatch dpms off' \
-    resume "hyprctl dispatch dpms on"
+    timeout 180 'exit-wm suspend-bat-only' \
+        resume "hyprctl dispatch dpms on" \
+    after-resume 'hyprctl dispatch dpms on'
