@@ -60,7 +60,7 @@ link ".config/systemd/user/polkit-gnome.service"
 link ".config/systemd/user/systembus-notify.service"
 link ".config/systemd/user/udiskie.service"
 link ".config/systemd/user/swayr.service"
-link ".config/systemd/user/waybar.service"
+# link ".config/systemd/user/waybar.service"
 link ".config/systemd/user/idle-handler.service"
 
 link ".config/git"
@@ -99,7 +99,7 @@ else
     systemctl_enable_start "polkit-gnome.service"
     systemctl_enable_start "systembus-notify.service"
     systemctl_enable_start "udiskie.service"
-    systemctl_enable_start "waybar.service"
+    # systemctl_enable_start "waybar.service"
     systemctl_enable_start "swayr.service"
     systemctl_enable_start "idle-handler.service"
 fi
