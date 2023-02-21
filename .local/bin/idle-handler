@@ -1,12 +1,24 @@
-#!/bin/env bash
-
-# TODO: extract audio inhibit into a systemd daemon
-# TODO: extract a companion binary
+#!/bin/env sh
 
 sway-audio-idle-inhibit &
 
+# Timers (seconds):
+lock_time=180
+screen_off_time=200
+suspend_time=300
+
+# Commands:
+lock_cmd='swaylock -f'
+screen_off_cmd=$(cat << EOF
+if [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ]; then
+    hyprctl dispatch dpms off
+fi
+EOF
+)
+suspend_cmd='exit-wm suspend'
+resume_cmd='hyprctl dispatch dpms on'
+
 swayidle -w \
-    timeout 60 'swaylock -f' \
-    timeout 180 'exit-wm suspend-bat-only' \
-        resume "hyprctl dispatch dpms on" \
-    after-resume 'hyprctl dispatch dpms on'
+timeout "$lock_time" "$lock_cmd" resume "$resume_cmd" \
+timeout "$screen_off_time" "$screen_off_cmd" resume "$resume_cmd" \
+timeout "$suspend_time" "$suspend_cmd" resume "$resume_cmd"

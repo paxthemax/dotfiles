@@ -1,32 +1,29 @@
 #!/bin/env bash
+#
+# File: exit-wm
+# Author: Pavle Batuta <pavle@batuta.xyz>
+# Description: Handle various wm exits
 
-handle_suspend() {
+before_lock() {
     playerctl -a pause
     bluetoothctl disconnect
-    systemctl -i suspend
-    swaylock
-}
-
-handle_suspend_bat_only() {
-    status=$(cat /sys/class/power_supply/BAT0/status)
-    if [[ "$status" == "Discharging" ]]; then
-        # We are discharging, go to sleep:
-        handle_suspend
-    else
-        # We are on plugged in, darken the screen
-        hyprctl dispatch dpms off
-    fi
+    set-kbd-backlight off
+    switch-xkb-layout default
 }
 
 case "$1" in
+    tty)
+        systemctl --user stop hyprland-session.target
+        hyprctl dispatch exit ''
+    ;;
     lock)
+        before_lock
         swaylock
     ;;
     suspend)
-        handle_suspend
-    ;;
-    suspend-bat-only)
-        handle_suspend_bat_only
+        before_lock
+        systemctl -i suspend
+        swaylock
     ;;
     reboot)
         systemctl -i reboot
@@ -35,7 +32,7 @@ case "$1" in
         systemctl -i poweroff
     ;;
     *)
-        echo "Usage: $0 {tty|lock|suspend|suspend-bat-only|reboot|shutdown}"
+        echo "Usage: $0 {tty|lock|suspend|reboot|shutdown}"
         exit 2
     ;;
 esac
