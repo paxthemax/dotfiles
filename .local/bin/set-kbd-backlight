@@ -1,0 +1,36 @@
+#!/bin/env bash
+
+# Use light -L to select keyboard
+device="sysfs/leds/tpacpi::kbd_backlight"
+
+# Predefined levels
+level_off=0.00
+level_low=50.00
+level_hi=100.00
+
+usage() {
+    echo "Usage $(basename "$0"): {get|off|low|hi|toggle|device|help}"
+}
+
+case "$1" in
+    "get") light -s "$device" ;;
+    "off") light -s "$device" -S "$level_off" ;;
+    "low") light -s "$device" -S "$level_low" ;;
+    "high") light -s "$device" -S "$level_hi" ;;
+    "toggle")
+        cur=$(light -s "$device")
+        case "$cur" in
+            "$level_off") next="$level_low";;
+            "$level_low") next="$level_hi";;
+            "$level_hi") next="$level_off";;
+            *)
+                echo "Error: invalid backlight level" 
+                exit 1
+            ;;
+        esac
+        echo "$next"
+        light -s "$device" -S "$next"
+    ;;
+    "device") echo "$device";;
+    *) usage ;;
+esac
