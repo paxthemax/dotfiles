@@ -1,0 +1,31 @@
+#!/bin/env bash
+#
+# File: switch-xkb-layout
+# Author: Pavle Batuta <pavle@batuta.xyz>
+# Description: Wrapper script for hypr switchxkblayout
+
+# TODO: add `get`
+
+# Check the keyboard device in `hyprctl devices`
+device="at-translated-set-2-keyboard"
+
+# Keyboards by index:
+en=0
+rs_lat=1
+
+# Default kb
+default="$en"
+
+usage() {
+    echo "Usage $(basename "$0"): {default|next|prev|en|rs-lat}"
+}
+
+case "$1" in
+    "default") hyprctl switchxkblayout "$device" "$default" ;;
+    "en") hyprctl switchxkblayout "$device" "$en" ;;
+    "rs-lat") hyprctl switchxkblayout "$device" "$rs_lat" ;;
+    "next") hyprctl switchxkblayout "$device" next ;;
+    "prev") hyprctl switchxkblayout "$device" prev ;;
+    "device") echo "$device";;
+    *) usage ;;
+esac
