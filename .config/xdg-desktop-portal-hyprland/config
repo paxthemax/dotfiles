@@ -1,7 +1,4 @@
 [screencast]
-chooser_type=default
-max_fps=30
-chooser_cmd=slurp -f %o -or
+chooser_type=none
 exec_before=waybar-dnd on
 exec_after=waybar-dnd off
-
