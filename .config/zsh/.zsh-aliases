@@ -231,6 +231,7 @@ pac() {
 
     rehash
 }
+command -v pacman &> /dev/null && compdef pac=pacman
 
 pacs() {
     [ $# -lt 1 ] && { >&2 echo "Error: no search term provided"; return 1; }
