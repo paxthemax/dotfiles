@@ -29,10 +29,11 @@ case "$1" in
         case "$layout" in
             "English (US)") echo "EN" ;;
             "Serbian (Latin)") echo "RS-lat" ;;
+            "Serbian") echo "RS-cyr" ;;
             *) echo "$layout" ;;
         esac
     ;;
-    "list") printf '%s\n%s\n' "EN" "RS-lat" ;;
+    "list") printf '%s\n%s\n%s\n' "EN" "RS-lat" "RS-cyr" ;;
     "default") hyprctl switchxkblayout "$device" "$default" ;;
     "en") hyprctl switchxkblayout "$device" "$en" ;;
     "rs-lat") hyprctl switchxkblayout "$device" "$rs_lat" ;;
