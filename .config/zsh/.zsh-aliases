@@ -208,26 +208,36 @@ repo-local-remove() {
 }
 
 pac() {
-    sudo -E pacman "$@" || return 1
+    local clean_cache=0
+    local is_removal=0
     
-    is_removal=0
+    case "$1" in
+        "-C" | "--clean-cache") 
+            clean_cache=1
+            shift 
+        ;;
+        *)
+            sudo -E pacman "$@" || return "$?"
+        ;;
+    esac
+
     while [[ "$1" == -* ]]; do
-        # TODO: use switch
-        [[ "$1" == "-h" ]] && return 0
-        [[ "$1" == "--help" ]] && return 0
-        [[ "$1" == "-V" ]] && return 0
-        [[ "$1" == "--version" ]] && return 0
-        [[ "$1" == "-R"* ]] && is_removal=1
-        shift
+        case "$1" in
+            "-h" | "--help" | "-V" | "--version") return 0 ;;
+            "-R" | "--remove") is_removal=1; shift ;;
+            *) shift
+        esac
     done
     if (( is_removal )); then
         echo "\nCleaning up AUR repo..."
         repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "$@"
     fi
     
-    echo "\nCleaning up repo cache..."
-    sudo -E paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
-    sudo -E paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
+    if (( clean_cache )); then
+        sudo -E paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
+        echo "\nCleaning up repo cache..."
+        sudo -E paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
+    fi
     
     rehash
 }
