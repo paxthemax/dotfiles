@@ -4,12 +4,14 @@
 # Author: Pavle Batuta <pavle@batuta.xyz>
 # Description: Wrapper script for hypr switchxkblayout
 
-# TODO: add `get`
+# TODO: sort out some kind of mapping
+# TODO: integrate into waybar
+# TODO: quick switch to MRU keyboard
 
 # Check the keyboard device in `hyprctl devices`
 device="at-translated-set-2-keyboard"
 
-# Keyboards by index:
+# Keyboard layouts by index:
 en=0
 rs_lat=1
 
@@ -17,10 +19,20 @@ rs_lat=1
 default="$en"
 
 usage() {
-    echo "Usage $(basename "$0"): {default|next|prev|en|rs-lat}"
+    echo "Usage $(basename "$0"): {get|default|next|prev|list|en|rs-lat}"
 }
 
 case "$1" in
+    "get")
+        # Try and shorten known keyboard names:
+        layout=$( hyprctl devices -j | jq -r ".keyboards | .[] | select(.name==\"$device\") | .active_keymap" )
+        case "$layout" in
+            "English (US)") echo "EN" ;;
+            "Serbian (Latin)") echo "RS-lat" ;;
+            *) echo "$layout" ;;
+        esac
+    ;;
+    "list") printf '%s\n%s\n' "EN" "RS-lat" ;;
     "default") hyprctl switchxkblayout "$device" "$default" ;;
     "en") hyprctl switchxkblayout "$device" "$en" ;;
     "rs-lat") hyprctl switchxkblayout "$device" "$rs_lat" ;;
