@@ -181,22 +181,22 @@ grf() {
         else
             fork=$(echo "$upstream" | awk -v name="$1" -F/ '{ print "https://github.com/" name "/" $2 }')
         fi
-
+        
         git remote remove "$1" 2>/dev/null
         git remote add "$1" "$fork"
         git fetch "$1"
     else
         myfork=$(echo "$upstream" | awk -v name="$USER" -F/ '{ print "git@github.com:" name "/" $5 }')
-
+        
         git remote remove upstream 2>/dev/null
         git remote remove origin 2>/dev/null
-
+        
         git remote add upstream "$upstream"
         git remote add origin "$myfork"
-
+        
         git fetch upstream
         git fetch origin
-
+        
         git branch --set-upstream-to=upstream/main main
     fi
 }
@@ -209,14 +209,14 @@ repo-local-remove() {
 
 pac() {
     sudo -E pacman "$@" || return 1
-
+    
     is_removal=0
     while [[ "$1" == -* ]]; do
-	# TODO: use switch
-	[[ "$1" == "-h" ]] && return 0
-	[[ "$1" == "--help" ]] && return 0
-	[[ "$1" == "-V" ]] && return 0
-	[[ "$1" == "--version" ]] && return 0
+        # TODO: use switch
+        [[ "$1" == "-h" ]] && return 0
+        [[ "$1" == "--help" ]] && return 0
+        [[ "$1" == "-V" ]] && return 0
+        [[ "$1" == "--version" ]] && return 0
         [[ "$1" == "-R"* ]] && is_removal=1
         shift
     done
@@ -224,11 +224,11 @@ pac() {
         echo "\nCleaning up AUR repo..."
         repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "$@"
     fi
-
+    
     echo "\nCleaning up repo cache..."
     sudo -E paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
     sudo -E paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
-
+    
     rehash
 }
 command -v pacman &> /dev/null && compdef pac=pacman
@@ -237,7 +237,7 @@ pacs() {
     [ $# -lt 1 ] && { >&2 echo "Error: no search term provided"; return 1; }
     sudo -E pacman -Sy
     tmp=$(mktemp -d)
-
+    
     {
         aur search --table -n -k NumVotes $(basename -a "$@" | xargs)  | awk -F"\t" '{print "aur/" $1 "\n" $4}'
         pacman -Ss $(basename -a "$@" | xargs)
@@ -250,7 +250,7 @@ pacs() {
         echo "$desc" >$tmp/$name
     done
     [ -s $tmp/pkgs ] || { >&2 echo "No packages found"; rm -rf "$tmp"; return 2; }
-
+    
     aur_pkgs=()
     repo_pkgs=()
     cat $tmp/pkgs | fzf --tac --preview-window=wrap --preview="cat $tmp/{1}; echo; echo; pacman -Si \$(basename {1}) 2>/dev/null; true" |
@@ -263,7 +263,7 @@ pacs() {
         fi
     done
     rm -rf "$tmp"
-
+    
     if (( ${#aur_pkgs[@]} )); then
         aur sync "${aur_pkgs[@]}"
         post_aur
