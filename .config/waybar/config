@@ -71,7 +71,7 @@
         ]
     },
     "hyprland/language": {
-        "min-length": 3
+        "min-length": 15
     },
     "battery": {
         "states": {
