@@ -101,6 +101,7 @@ else
     systemctl_enable_start "systembus-notify.service"
     systemctl_enable_start "udiskie.service"
     systemctl_enable_start "swayr.service"
+    systemctl_enable_start "yubikey-touch-detector.socket"
 fi
 
 echo ""
