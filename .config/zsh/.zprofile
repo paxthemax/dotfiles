@@ -17,7 +17,7 @@ gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
 # Update systemd environment:
 systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
 
-# Start sway:
+# Start Hyprland:
 if [[ -z "$DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
   	# Run sway attached to systemd
 	systemd-cat -t "hyprland" Hyprland
