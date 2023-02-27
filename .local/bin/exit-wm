@@ -22,8 +22,8 @@ case "$1" in
     ;;
     suspend)
         before_lock
+        swaylock -f
         systemctl -i suspend
-        swaylock
     ;;
     reboot)
         systemctl -i reboot
