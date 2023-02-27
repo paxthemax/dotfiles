@@ -5,6 +5,7 @@
 @define-color green      #b8bb26;
 
 * {
+  background: @background;
   border: none;
   border-radius: 0;
   font-family: Input, "Font Awesome 6 Free Solid";
@@ -42,6 +43,7 @@ window#waybar {
 }
 
 #custom-usbguard,
+#custom-yubikey,
 #custom-decrypted,
 #custom-updates,
 #custom-mail,
@@ -85,6 +87,7 @@ window#waybar {
 #custom-systemd,
 #custom-updates,
 #custom-mail,
+#custom-wttr,
 #network,
 #cpu,
 #disk,
@@ -106,5 +109,25 @@ window#waybar {
 
 #tray {
   margin-left: -1000000px;
+}
+
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-eyes,
+#custom-mail,
+#custom-recording,
+#custom-security,
+#custom-systemd,
+#custom-updates,
+#custom-usbguard,
+#custom-yubikey,
+#disk,
+#memory,
+#mode,
+#network,
+#pulseaudio {
+  color: @foreground;
 }
 

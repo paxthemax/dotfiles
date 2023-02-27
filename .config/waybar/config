@@ -5,21 +5,24 @@
         "wlr/workspaces",
         "hyprland/submap"
     ],
-    "modules-center": [
-        "clock",
-        "custom/wttr"
-    ],
     "modules-right": [
+        "custom/yubikey",
         "custom/usbguard",
         "custom/systemd",
+        "custom/wttr",
         "custom/dnd",
         "pulseaudio",
         "network",
         "backlight",
         "hyprland/language",
         "battery",
-        "tray"
+        "clock"
     ],
+
+    "custom/yubikey": {
+        "exec": "waybar-yubikey",
+        "return-type": "json"
+    },
     "custom/wttr" : {
         "tooltip" : true,
         "format" : "{}",
