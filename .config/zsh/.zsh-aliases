@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # File: .zsh-aliases
 # Description: zsh aliases
@@ -37,15 +37,25 @@ alias ll='ls -l'
 alias utc='env TZ=UTC date'
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+function md() { 
+    [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" 
+    }
 compdef _directories md
 
-e64() { [[ $# == 1 ]] && base64 -w0 <<<"$1" || base64 -w0 }
-d64() { [[ $# == 1 ]] && base64 --decode <<<"$1" || base64 --decode }
+e64() { 
+    [[ $# == 1 ]] && base64 -w0 <<<"$1" || base64 -w0 
+    }
+d64() { 
+    [[ $# == 1 ]] && base64 --decode <<<"$1" || base64 --decode 
+    }
 
-p() { ping "${1:-1.1.1.1}" }
+p() { 
+    ping "${1:-1.1.1.1}" 
+    }
 
-x() { PAGER="less -+F" xplr | IFS= read -r dir && cd -- "${dir:-.}" }
+x() { 
+    PAGER="less -+F" xplr | IFS= read -r dir && cd -- "${dir:-.}" 
+    }
 
 alias toggle-inhibit-idle='waybar-inhibit-idle toggle'
 
@@ -203,24 +213,20 @@ grf() {
 
 ## pacman:
 
-repo-local-remove() {
-    repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "$@"
-}
-
 pac() {
     local clean_cache=0
     local is_removal=0
     
     case "$1" in
-        "-C" | "--clean-cache") 
+        "-C" | "--clean-cache")
             clean_cache=1
-            shift 
+            shift
         ;;
         *)
             sudo -E pacman "$@" || return "$?"
         ;;
     esac
-
+    
     while [[ "$1" == -* ]]; do
         case "$1" in
             "-h" | "--help" | "-V" | "--version") return 0 ;;
@@ -298,3 +304,18 @@ aurs() {
     post_aur
 }
 alias aurs!='aurs --nover-argv -f'
+
+aurl() {
+    aur repo --list --quiet | fzf \
+    --preview-window=wrap \
+    --preview="pacman -Si \$(basename {1}) 2>/dev/null; true"
+}
+
+aur-repo-remove() {
+    pkgs=()
+    aurl |
+    while read -r pkg; do pkgs+=("$pkg"); done # get all elements from fzf
+    if (( ${#pkgs[@]} )); then
+        repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
+    fi
+}
