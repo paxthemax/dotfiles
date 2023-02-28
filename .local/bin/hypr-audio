@@ -10,7 +10,7 @@ error() {
 # Paired bluetooth audio:
 headset_id="20:74:CF:B2:51:31" # OpenComm by Shokz
 headphones_id="70:26:05:B0:A0:81" # WH-1000XM2
-speaker_id="00:42:79:A3:DF:37"
+speaker_id="00:42:79:A3:DF:37" # JBL Charge 3
 
 default_p="a2dp-sink-ldac"  ## Set this to aptx-hd or LDAC per preference
 headset_p="headset-head-unit-msbc"
@@ -35,9 +35,11 @@ case "$1" in
     bt-connect-speakers)  
 	bluetoothctl connect "$speaker_id" || notify-send -u critical "Failed to connect to bluetooth speaker"
 	;;
-    bt-disconnect)         
+    bt-disconnect)
+		bluetoothctl disconnect "$headset_id";       
         bluetoothctl disconnect "$headphones_id"; 
-	bluetoothctl disconnect "$speaker_id";
+		bluetoothctl disconnect "$speaker_id";
+		notify-send "Disconnected"
 	;;
     output-mute)           
 	pactl set-sink-mute     @DEFAULT_SINK@   toggle 
