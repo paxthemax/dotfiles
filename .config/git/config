@@ -1,3 +1,7 @@
+[user]
+	email = pavle@batuta.xyz
+	signingkey = 0x4CF24431CD2B2767
+
 [advice]
 	detachedHead = false
 
@@ -32,6 +36,9 @@
 	autocrlf = input
 	excludesfile = ~/.config/git/ignore
 	untrackedCache = true
+
+[commit]
+	gpgSign = true
 
 [diff]
 	colorMoved = default
