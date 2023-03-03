@@ -14,12 +14,13 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 # Update the gpg agent:
 gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
 
-# Update systemd environment:
-systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
-
+# TODO: do I need this?
 if command -v dbus-update-activation-environment >/dev/null 2>&1; then
     dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
 fi
+
+# Update systemd environment:
+systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
 
 # Start Hyprland:
 if [[ -z "$DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then

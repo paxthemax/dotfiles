@@ -94,8 +94,6 @@ copy "etc/iwd/main.conf"
 copy "etc/pacman.conf" 644
 copy "etc/pacman.d/hooks"
 copy "etc/pam.d/polkit-1"
-copy "etc/pam.d/login"
-copy "etc/pam.d/passwd"
 copy "etc/snap-pac.ini"
 copy "etc/snapper/configs/root"
 copy "etc/ssh/ssh_config"
