@@ -316,6 +316,6 @@ aur-repo-remove() {
     aurl |
     while read -r pkg; do pkgs+=("$pkg"); done # get all elements from fzf
     if (( ${#pkgs[@]} )); then
-        repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
+        repo-remove /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
     fi
 }
