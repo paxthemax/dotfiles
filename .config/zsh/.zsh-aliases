@@ -235,13 +235,13 @@ pac() {
         esac
     done
     if (( is_removal )); then
-        echo "\nCleaning up AUR repo..."
+        printf "\nCleaning up AUR repo...\n"
         repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "$@"
     fi
     
     if (( clean_cache )); then
         sudo -E paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
-        echo "\nCleaning up repo cache..."
+        printf "\nCleaning up repo cache...\n"
         sudo -E paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/pax-local
     fi
     
@@ -262,8 +262,8 @@ pacs() {
         read -r desc
         name="${pkg%% *}"
         mkdir -p "$tmp/${name%/*}"
-        echo "$pkg" >>$tmp/pkgs
-        echo "$desc" >$tmp/$name
+        echo "$pkg" >>"$tmp"/pkgs
+        echo "$desc" >"$tmp"/"$name"
     done
     [ -s $tmp/pkgs ] || { >&2 echo "No packages found"; rm -rf "$tmp"; return 2; }
     
