@@ -318,6 +318,15 @@ aurgrep() {
     --preview="pacman -Si \$(basename {1}) 2>/dev/null; true"
 }
 
+aurrm() {
+    pkgs=()
+    aurgrep |
+    while read -r pkg; do pkgs+=("$pkg"); done # get all elements from fzf
+    if (( ${#pkgs[@]} )); then
+        pac -R "${pkgs[@]}"
+    fi
+}
+
 aur-repo-remove() {
     pkgs=()
     aurgrep |
