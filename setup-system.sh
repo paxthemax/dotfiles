@@ -91,6 +91,8 @@ copy "etc/default/earlyoom"
 copy "etc/docker/daemon.json"
 copy "etc/fwupd/uefi_capsule.conf"
 copy "etc/iwd/main.conf"
+copy "etc/modules-load.d/v4l2loopback.conf"
+copy "etc/modprobe.d/v4l2loopback.conf"
 copy "etc/pacman.conf" 644
 copy "etc/pacman.d/hooks"
 copy "etc/pam.d/polkit-1"
