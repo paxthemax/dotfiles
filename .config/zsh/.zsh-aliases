@@ -319,19 +319,22 @@ aurgrep() {
 }
 
 aurrm() {
+    local force=0
+
+    case "$1" in
+    "-f" | "--force")
+        force=1
+        shift
+    ;;
+    esac
+
     pkgs=()
     aurgrep |
     while read -r pkg; do pkgs+=("$pkg"); done # get all elements from fzf
     if (( ${#pkgs[@]} )); then
         pac -R "${pkgs[@]}"
-    fi
-}
-
-aur-repo-remove() {
-    pkgs=()
-    aurgrep |
-    while read -r pkg; do pkgs+=("$pkg"); done # get all elements from fzf
-    if (( ${#pkgs[@]} )); then
-        repo-remove /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
+        if (( force )); then
+            repo-remove /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
+        fi
     fi
 }
