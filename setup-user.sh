@@ -118,6 +118,16 @@ find "$HOME/.gnupg" -type f -not -path "*#*" -exec chmod 600 {} \;
 find "$HOME/.gnupg" -type d -exec chmod 700 {} \;
 
 if is_chroot; then
+    echo >&2 "=== Running in chroot, skipping YubiKey configuration..."
+else
+    if [ ! -s "$HOME/.config/Yubico/u2f_keys" ]; then
+        echo "Configuring YubiKey for passwordless sudo (touch it now)"
+        mkdir -p "$HOME/.config/Yubico"
+        pamu2fcfg -upax > "$HOME/.config/Yubico/u2f_keys"
+    fi
+fi
+
+if is_chroot; then
     echo >&2 "=== Running in chroot, skipping GTK file chooser dialog configuration..."
 else
     echo "Configuring GTK file chooser dialog"

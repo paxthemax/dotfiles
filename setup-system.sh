@@ -95,7 +95,10 @@ copy "etc/modules-load.d/v4l2loopback.conf"
 copy "etc/modprobe.d/v4l2loopback.conf"
 copy "etc/pacman.conf" 644
 copy "etc/pacman.d/hooks"
+
+copy "etc/pam.d/sudo"
 copy "etc/pam.d/polkit-1"
+
 copy "etc/snap-pac.ini"
 copy "etc/snapper/configs/root"
 copy "etc/ssh/ssh_config"
