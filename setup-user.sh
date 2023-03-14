@@ -79,9 +79,6 @@ link ".config/xdg-desktop-portal-hyprland"
 link ".config/gtk-3.0"
 link ".config/vimiv"
 
-link ".config/easyeffects/output/Blank.json"
-link ".config/easyeffects/output/Laptop.json"
-
 link ".config/discord-flags.conf"
 
 link ".local/bin"
