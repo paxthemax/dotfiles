@@ -14,31 +14,55 @@ device="at-translated-set-2-keyboard"
 # Keyboard layouts by index:
 en=0
 rs_lat=1
+rs_cyr=2
+
+# Keyboard layour labels:
+en_lab="EN"
+rs_lat_lab="RS"
+rs_cyr_lab="PC"
+
 
 # Default kb
 default="$en"
 
 usage() {
-    echo "Usage $(basename "$0"): {get|default|next|prev|list|en|rs-lat}"
+    echo "Usage $(basename "$0"): {get|list|default|next|prev|en|rs-lat|rs-cyr|cycle|cycle-get|device}"
+}
+
+get_cur_layout() {
+    hyprctl devices -j | jq -r ".keyboards | .[] | select(.name==\"$device\") | .active_keymap" 
+}
+
+switch_layout() {
+    hyprctl switchxkblayout "$device" "$1"
 }
 
 case "$1" in
     "get")
         # Try and shorten known keyboard names:
-        layout=$( hyprctl devices -j | jq -r ".keyboards | .[] | select(.name==\"$device\") | .active_keymap" )
-        case "$layout" in
-            "English (US)") echo "EN" ;;
-            "Serbian (Latin)") echo "RS-lat" ;;
-            "Serbian") echo "RS-cyr" ;;
-            *) echo "$layout" ;;
+        cur_layout=$(get_cur_layout)
+        case "$cur_layout" in
+            "English (US)") printf '%s\n' "$en_lab" ;;
+            "Serbian (Latin)") printf '%s\n' "$rs_lat_lab" ;;
+            "Serbian") printf '%s\n' "$rs_cyr_lab" ;;
+            *) echo "$cur_layout" ;;
         esac
     ;;
     "list") printf '%s\n%s\n%s\n' "EN" "RS-lat" "RS-cyr" ;;
-    "default") hyprctl switchxkblayout "$device" "$default" ;;
-    "en") hyprctl switchxkblayout "$device" "$en" ;;
-    "rs-lat") hyprctl switchxkblayout "$device" "$rs_lat" ;;
-    "next") hyprctl switchxkblayout "$device" next ;;
-    "prev") hyprctl switchxkblayout "$device" prev ;;
+    "default") switch_layout "$default" ;;
+    "en") switch_layout "$en" ;;
+    "rs-lat") switch_layout "$rs_lat" ;;
+    "rs-cyr") switch_layout "$rs_cyr" ;;
+    "next") switch_layout next ;;
+    "prev") switch_layout prev ;;
+    "cycle")
+        cur_layout=$(get_cur_layout)
+        case "$cur_layout" in
+            "English (US)") switch_layout "$rs_lat" ;;
+            *) switch_layout "$en"
+        esac
+    ;;
+    "cycle-get") printf '%s\n%s\n' "EN" "RS-lat" ;;
     "device") echo "$device";;
     *) usage ;;
 esac
