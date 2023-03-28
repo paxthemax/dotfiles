@@ -109,6 +109,9 @@ export DIRENV_LOG_FORMAT=
 export FZF_DEFAULT_OPTS="--reverse --multi"
 export SYSTEMD_LESS="${LESS}S"
 
+###
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 ###
 
