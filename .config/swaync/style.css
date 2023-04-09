@@ -2,51 +2,74 @@
  * vim: ft=less
  */
 
-@define-color border-color rgb(7, 7, 7);
-@define-color bg rgb(58, 58, 58);
-@define-color bg-hover rgb(68, 68, 68);
-@define-color bg-focus rgba(68, 68, 68, 0.6);
-@define-color bg-selected rgb(0, 128, 255);
-@define-color red-gruvbox rgb(251, 73, 52);
-@define-color fg-gruvbox rgb(235, 219, 178);
-@define-color bg-gruvbox rgba(36, 40, 40, 0.9);
+*{
+	font-family: monospace;
+}
 
-.notification-row {
+.notification-row { 
   outline: none;
 }
+
 .notification-row:focus,
 .notification-row:hover {
-  background: transparent;
+  background: rgba(40, 40, 40, 1);
+  border-radius: 15px;
+  outline: none;
 }
 
 .notification {
-  border-radius: 10px;
-  margin: 6px 12px;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  margin: 15px 12px;
+  border: 1px solid #1f1e1e;
   padding: 0;
 }
 
-.critical {
-  box-shadow: 0px 2px 4px 2px rgba(251, 73, 52, 0.3);
+/* Uncomment to enable specific urgency colors
+.low {
+  background: yellow;
+  padding: 6px;
+  border-radius: 12px;
 }
+
+.normal {
+  background: green;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.critical {
+  background: red;
+  padding: 6px;
+  border-radius: 12px;
+}
+*/
 
 .notification-content {
   background: transparent;
   padding: 6px;
-  border-radius: 10px;
+  border-radius: 12px;
+  border-radius: 15px;
 }
 
 .close-button {
-  background: @red-gruvbox;
-  color: @fg-gruvbox;
+  background:  rgba(208, 200, 164, 1);
+  color: white;
   text-shadow: none;
-  padding: 0 2px;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.3);
+  padding: 0;
   border-radius: 100%;
+  margin-top: 10px;
+  margin-right: 16px;
+  box-shadow: none;
+  border: none;
+  min-width: 24px;
+  min-height: 24px;
 }
+
 .close-button:hover {
-  background: rgb(30, 30, 30);
+  box-shadow: none;
+  background: rgba(208, 200, 164, 1);
   transition: all 0.15s ease-in-out;
+  border: none;
 }
 
 .notification-default-action,
@@ -54,17 +77,19 @@
   padding: 4px;
   margin: 0;
   box-shadow: none;
-  background: @bg;
-  border: 1px solid @border-color;
+  background: rgba(40, 40, 40, 1);
+  border: 1px solid rgba(31, 30, 30, 1);
+  color: white;
 }
 
 .notification-default-action:hover,
 .notification-action:hover {
-  background: @bg-hover;
+  -gtk-icon-effect: none;
+  background: rgba(40, 40, 40, 1);
 }
 
 .notification-default-action {
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 /* When alternative actions are visible */
@@ -73,8 +98,8 @@
   border-bottom-right-radius: 0px;
 }
 
-.notification-action {font pango:SourceCodePro Medium 12
-  border-radius: 0px;
+.notification-action {
+  border-radius: 15px;
   border-top: none;
   border-right: none;
 }
@@ -83,72 +108,79 @@
 .notification-action:first-child {
   border-bottom-left-radius: 10px;
 }
+
 .notification-action:last-child {
   border-bottom-right-radius: 10px;
-  border-right: 1px solid @border-color;
-}
-
-.image {
+  border-right: 1px solid rgba(31, 30, 30, 1);
 }
 
 .body-image {
   margin-top: 6px;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .summary {
-  color: @fg-gruvbox;
+  color: white;
   text-shadow: none;
 }
 
 .time {
-  color: @fg-gruvbox;
+  color: white;
   text-shadow: none;
+  margin-right: 18px;
 }
 
 .body {
   background: transparent;
-  color: @fg-gruvbox;
+  color: white;
   text-shadow: none;
+  border-radius: 15px;
 }
 
+/* The "Notificações" and "Não pertube" text widget */
 .top-action-title {
-  color: @fg-gruvbox;
+  color: white;
   text-shadow: none;
 }
 
 .control-center-clear-all {
-  color: @fg-gruvbox;
+  color: white;
   text-shadow: none;
-  background: @bg;
-  border: 1px solid @border-color;
+  background: rgba(40, 40, 40, 1);
+  border: 1px solid rgba(31, 30, 30, 1);
   box-shadow: none;
-  border-radius: 10px;
+  border-radius: 15px;
 }
+
 .control-center-clear-all:hover {
-  background: @bg-hover;
+  background: rgba(40, 40, 40, 1);
+  border-radius: 15px;
 }
 
 .control-center-dnd {
-  border-radius: 10px;
-  background: @bg;
-  border: 1px solid @border-color;
+  border-radius: 12px;
+  background: rgba(40, 40, 40, 1);
+  border: 1px solid rgba(31, 30, 30, 1);
   box-shadow: none;
 }
 
 .control-center-dnd:checked {
-  background: @red-gruvbox;
+  background: rgba(175, 121, 25, 1);
+  border-radius: 15px;
 }
+
 .control-center-dnd slider {
-  background: @bg-hover;
+  background: rgba(31, 30, 30, 1);
+  border-radius: 12px;
+  border-radius: 15px;
 }
 
 .control-center {
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 5px;
-  background: @bg-gruvbox;
+  background: rgba(40, 40, 40, 1);
+  border-radius: 15px;
 }
+
 .control-center-list {
   background: transparent;
 }
@@ -157,3 +189,7 @@
   background: transparent;
 }
 
+/* Window behind control center and on all other monitors */
+.blank-window {
+  background: alpha(black, 0.25);
+}
