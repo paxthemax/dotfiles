@@ -2,8 +2,7 @@
 
 [[ "$TTY" == /dev/tty* ]] || return 0
 
-# Export environment from systemd user configuration:
-export $(systemctl --user show-environment)
+source "$ZDOTDIR/scripts/export-systemd-env.sh"
 
 # Set the gnuPG tty for the gpg agent:
 export GPG_TTY=$(tty)
@@ -24,9 +23,9 @@ systemctl --user import-environment GPG_TTY SSH_AUTH_SOCK
 
 # Start Hyprland:
 if [[ -z "$DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
-  	# Run sway attached to systemd
-	systemd-cat -t "hyprland" Hyprland
-	systemctl --user stop graphical-session.target
-	systemctl --user unset-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+    # Run sway attached to systemd
+    systemd-cat -t "hyprland" Hyprland
+    systemctl --user stop graphical-session.target
+    systemctl --user unset-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 fi
 

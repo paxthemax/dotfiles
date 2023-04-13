@@ -53,6 +53,7 @@ link ".config/zsh/.zsh-aliases"
 link ".config/zsh/.zshenv"
 link ".config/zsh/.zshrc"
 link ".config/zsh/.p10k.zsh"
+link ".config/zsh/scripts"
 
 link ".config/systemd/user/hyprland-session.target"
 link ".config/systemd/user/battery-low-notify.service"
