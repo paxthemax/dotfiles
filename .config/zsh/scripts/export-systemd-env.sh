@@ -3,7 +3,6 @@
 # Export all vars from the local systemd env.
 # Ignore all comments and empty lines.
 
-echo "test"
 for file in ~/.config/environment.d/*.conf; do
     grep -hv "^#" "$file" |
     grep "." |
