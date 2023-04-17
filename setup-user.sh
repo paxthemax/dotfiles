@@ -41,9 +41,6 @@ echo "==========================="
 echo "Setting up user dotfiles..."
 echo "==========================="
 
-link ".gnupg/gpg.conf"
-link ".gnupg/gpg-agent.conf"
-
 link ".magic"
 
 link ".config/environment.d"
@@ -73,6 +70,7 @@ link ".config/swaylock"
 link ".config/kitty"
 link ".config/swaync"
 link ".config/tig"
+link ".config/npm"
 link ".config/mpv"
 link ".config/swappy"
 link ".config/xdg-desktop-portal-wlr"
@@ -84,6 +82,9 @@ link ".config/discord-flags.conf"
 
 link ".local/bin"
 link ".local/share/applications"
+
+link ".local/share/gnupg/gpg-agent.conf"
+link ".local/share/gnupg/gpg.conf"
 
 if is_chroot; then
     echo >&2 "=== Running in chroot, skipping user services..."
@@ -112,8 +113,8 @@ echo "======================================="
 echo "Configuring MIME types"
 file --compile --magic-file "$HOME/.magic"
 
-find "$HOME/.gnupg" -type f -not -path "*#*" -exec chmod 600 {} \;
-find "$HOME/.gnupg" -type d -exec chmod 700 {} \;
+find "$HOME/.local/share/gnupg" -type f -not -path "*#*" -exec chmod 600 {} \;
+find "$HOME/.local/share/gnupg" -type d -exec chmod 700 {} \;
 
 if is_chroot; then
     echo >&2 "=== Running in chroot, skipping YubiKey configuration..."
