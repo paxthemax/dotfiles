@@ -32,3 +32,5 @@ fi
 . "$Z4H"/z4h.zsh || return
 
 setopt rcs
+
+export PATH="$PATH:/home/pax/.local/state/foundry/bin"
