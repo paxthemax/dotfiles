@@ -17,7 +17,7 @@ zstyle ':z4h:(fzf-complete|fzf-dir-history|fzf-history)' fzf-flags --no-exact --
 zstyle ':z4h:(fzf-complete|fzf-dir-history)' fzf-bindings 'tab:repeat'
 zstyle ':z4h:fzf-complete' find-flags -name '.git' -prune -print -o -print
 
-zstyle ':z4h:ssh:*' enable no 
+zstyle ':z4h:ssh:*' enable no
 zstyle ':z4h:ssh:*' ssh-command kitty command ssh
 zstyle ':z4h:ssh:*' term 'xterm-256-color'
 zstyle ':z4h:ssh:*' send-extra-files '~/.zsh-aliases'
@@ -50,7 +50,7 @@ zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" "l:|=* r:|=*"
 
 ###
 
-fpath+=($Z4H/romkatv/archive)
+fpath+=("$Z4H"/romkatv/archive)
 autoload -Uz archive lsarchive unarchive edit-command-line
 
 zle -N edit-command-line
@@ -111,9 +111,10 @@ export SYSTEMD_LESS="${LESS}S"
 
 ###
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 ###
 
 z4h source -- /usr/share/LS_COLORS/dircolors.sh
-z4h source -- $ZDOTDIR/.zsh-aliases
+z4h source -- "$ZDOTDIR"/.zsh-aliases
