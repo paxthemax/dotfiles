@@ -281,7 +281,7 @@ pacs() {
     rm -rf "$tmp"
     
     if (( ${#aur_pkgs[@]} )); then
-        aur sync -c "${aur_pkgs[@]}"
+        aur sync "${aur_pkgs[@]}"
         post_aur
     fi
     SNAP_PAC_SKIP=true pac -Sy "${aur_pkgs[@]}" "${repo_pkgs[@]}"
@@ -299,14 +299,14 @@ pacu() {
 }
 
 aurs() {
-    aur sync -c "$@"
+    aur sync "$@"
     sudo -E pacman -Sy
     post_aur
 }
 alias aurs!='aurs --nover-argv -f'
 
 aurb() {
-    aur build -cf --pkgver "$@"
+    aur build -f --pkgver "$@"
     sudo -E pacman -Sy
     pkill -RTMIN+1 -x waybar
     post_aur
