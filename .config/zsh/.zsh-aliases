@@ -334,7 +334,7 @@ aurrm() {
     if (( ${#pkgs[@]} )); then
         pac -R "${pkgs[@]}"
         if (( force )); then
-            repo-remove /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
+            repo-remove -s /var/cache/pacman/pax-local/pax-local.db.tar "${pkgs[@]}"
         fi
     fi
 }
