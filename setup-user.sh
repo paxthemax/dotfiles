@@ -19,10 +19,10 @@ link() {
     else
         dest_file="$HOME/$1"
     fi
-
+    
     mkdir -p "$(dirname "$orig_file")"
     mkdir -p "$(dirname "$dest_file")"
-
+    
     rm -rf "$dest_file"
     ln -s "$orig_file" "$dest_file"
     echo "$dest_file -> $orig_file"
@@ -57,7 +57,6 @@ link ".config/systemd/user/battery-low-notify.service"
 link ".config/systemd/user/polkit-gnome.service"
 link ".config/systemd/user/systembus-notify.service"
 link ".config/systemd/user/udiskie.service"
-link ".config/systemd/user/swayr.service"
 
 link ".config/git"
 
@@ -93,15 +92,14 @@ else
     echo "================================="
     echo "Enabling and starting services..."
     echo "================================="
-
+    
     systemctl --user daemon-reload
-
+    
     systemctl_enable_start "swaync.service"
     systemctl_enable_start "battery-low-notify.service"
     systemctl_enable_start "polkit-gnome.service"
     systemctl_enable_start "systembus-notify.service"
     systemctl_enable_start "udiskie.service"
-    systemctl_enable_start "swayr.service"
     systemctl_enable_start "yubikey-touch-detector.socket"
 fi
 
