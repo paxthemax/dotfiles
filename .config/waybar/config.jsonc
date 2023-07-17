@@ -1,20 +1,16 @@
 {
   "layer": "top",
   "height": 25,
-  "modules-left": [
-    "wlr/workspaces",
-    "hyprland/submap"
-  ],
+  "modules-left": ["wlr/workspaces", "hyprland/submap"],
+  "modules-center": [],
   "modules-right": [
     "custom/yubikey",
-    "custom/usbguard",
     "custom/systemd",
-    "custom/wttr",
     "custom/dnd",
     "pulseaudio",
     "network",
-    "backlight",
     "hyprland/language",
+    "backlight",
     "battery",
     "clock"
   ],
@@ -65,9 +61,7 @@
   },
   "backlight": {
     "format": "<span foreground='#928374'>{icon}</span> {percent}%",
-    "format-icons": [
-      ""
-    ]
+    "format-icons": [""]
   },
   "hyprland/language": {
     "min-length": 15
@@ -79,13 +73,7 @@
     },
     "format": "<span foreground='#928374'>{icon}</span> {capacity}%",
     "format-charging": "<span foreground='#928374'></span> {capacity}%",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+    "format-icons": ["", "", "", "", ""]
   },
   "network": {
     "interval": 2,
@@ -110,11 +98,7 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
   }
