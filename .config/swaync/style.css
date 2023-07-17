@@ -2,11 +2,11 @@
  * vim: ft=less
  */
 
-*{
-	font-family: monospace;
+* {
+  font-family: sans-serif;
 }
 
-.notification-row { 
+.notification-row {
   outline: none;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .close-button {
-  background:  rgba(208, 200, 164, 1);
+  background: rgba(208, 200, 164, 1);
   color: white;
   text-shadow: none;
   padding: 0;
