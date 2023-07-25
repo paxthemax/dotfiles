@@ -100,6 +100,7 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"]
   }
 }
