@@ -100,7 +100,8 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "on-click": "pavucontrol",
+    "on-click": "hypr-audio output-mute",
+    "on-click-right": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
   }
 }
