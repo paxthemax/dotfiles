@@ -12,13 +12,13 @@ error() {
 
 # Paired bluetooth audio:
 headset_id="20:74:CF:B2:51:31" # OpenComm by Shokz
-headset_output_name="bluez_output.20_74_CF_B2_51_31"
+headset_output_name="bluez_output.20_74_CF_B2_51_31.1"
 
 headphones_id="70:26:05:B0:A0:81" # WH-1000XM2
 headphones_output_name="bluez_output.70_26_05_B0_A0_81.1"
 
 speaker_id="00:42:79:A3:DF:37" # JBL Charge 3
-speaker_output_name="bluez_output.00_42_79_A3_DF_37";
+speaker_output_name="bluez_output.00_42_79_A3_DF_37.1";
 
 default_p="a2dp-sink-ldac"  ## Set this to aptx-hd or LDAC per preference
 headset_p="headset-head-unit-msbc"
