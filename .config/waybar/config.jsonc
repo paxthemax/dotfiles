@@ -64,7 +64,8 @@
     "format-icons": [""]
   },
   "hyprland/language": {
-    "min-length": 15
+    "format": "<span foreground='#928374'></span> {shortDescription} {variant}",
+    "on-click": "switch-xkb-layout cycle"
   },
   "battery": {
     "states": {
@@ -100,6 +101,9 @@
       "car": "",
       "default": ["", "", ""]
     },
+    "on-scroll-up": "hypr-audio output-volume-up",
+    "on-scroll-down": "hypr-audio output-volume-down",
+    "scroll-step": 5,
     "on-click": "hypr-audio output-mute",
     "on-click-right": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
