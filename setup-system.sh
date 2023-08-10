@@ -1,7 +1,7 @@
 #!/bin/env bash
 #
 # Description:  Sync system (/etc) dotfiles
-# Usage:        Run in regular mode to update system from dotfiles. 
+# Usage:        Run in regular mode to update system from dotfiles.
 #               Run with "-r" switch to update dotfiles from system.
 # Author:       Pavle Batuta <pavle@batuta.xyz>
 # Credits:      maximbaz
@@ -42,12 +42,12 @@ copy() {
         [ -n "$3" ] && orig_file="/$3" || orig_file="/$1"
         dest_file="$dotfiles_dir/$1"
     fi
-
+    
     mkdir -p "$(dirname "$orig_file")"
     mkdir -p "$(dirname "$dest_file")"
-
+    
     rm -rf "$dest_file"
-
+    
     cp -R "$orig_file" "$dest_file"
     if [ -z "$reverse" ]; then
         [ -n "$2" ] && chmod "$2" "$dest_file"
@@ -85,7 +85,6 @@ echo "Setting up /etc configs..."
 echo "=========================="
 
 copy "etc/mkinitcpio.conf"
-copy "etc/bluetooth/main.conf"
 copy "etc/conf.d/snapper"
 copy "etc/default/earlyoom"
 copy "etc/docker/daemon.json"
