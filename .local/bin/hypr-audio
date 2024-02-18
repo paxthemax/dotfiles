@@ -8,7 +8,7 @@ error() {
 [ $# -gt 0 ] || error "Usage: $0 <action> (e.g. $0 output-mute)"
 
 # Default sink (speakers + headphone jack):
-# default_output_name="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
+default_output_name="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.3.HiFi__hw_sofhdadsp__sink"
 
 # Paired bluetooth audio:
 headset_id="20:74:CF:B2:51:31" # OpenComm by Shokz
@@ -30,35 +30,44 @@ case "$1" in
         a2dp=$(pactl list | grep Active | grep "$default_p")
         [ -n "$bt_card" ] || error "No bluetooth device connected"
         [ -n "$a2dp" ] && new="$headset_p" || new="$default_p"
-        echo "$new"
         pactl set-card-profile "$bt_card" "$new"
         notify-send -t 2000 "Switched audio profile" "$new"
     ;;
     bt-connect-headset)
         bluetoothctl power on;
         sleep 0.2;
-        bluetoothctl connect "$headset_id" || \
-        notify-send -u critical "Failed to connect to bluetooth headset"
-        pactl set-default-sink "$headset_output_name"
+        if [ "$(bluetoothctl connect "$headset_id")" ]; then
+            pactl set-default-sink "$headset_output_name"
+        else
+            notify-send -u critical "Failed to connect to bluetooth headset"
+            exit 1
+        fi
     ;;
     bt-connect-headphones)
         bluetoothctl power on;
         sleep 0.2;
-        bluetoothctl connect "$headphones_id" || \
-        notify-send -u critical "Failed to connect to bluetooth headphones" && exit 1
-        pactl set-default-sink "$headphones_output_name"
+        if [ "$(bluetoothctl connect "$headphones_id")" ]; then
+            pactl set-default-sink "$headphones_output_name"
+        else
+            notify-send -u critical "Failed to connect to bluetooth headphones"
+            exit 1
+        fi
     ;;
     bt-connect-speakers)
         bluetoothctl power on;
         sleep 0.2;
-        bluetoothctl connect "$speaker_id" || \
-        notify-send -u critical "Failed to connect to bluetooth speaker" && exit 1
-        pactl set-default-sink "$speaker_output_name"
+        if [ "$(bluetoothctl connect "$speaker_id")" ]; then
+            pactl set-default-sink "$speaker_output_name"
+        else
+            notify-send -u critical "Failed to connect to bluetooth speaker"
+            exit 1
+        fi
     ;;
     bt-disconnect)
         bluetoothctl disconnect "$headset_id";
         bluetoothctl disconnect "$headphones_id";
         bluetoothctl disconnect "$speaker_id";
+        pactl set-default-sink "$default_output_name"
         sleep 0.2; # TODO: this may not be necessary
         bluetoothctl power off
     ;;
