@@ -1,5 +1,5 @@
 [screencast]
 chooser_type=none
-exec_before=waybar-dnd on
-exec_after=waybar-dnd off
+exec_before=swaync-client --inhibitor-add "xdg-desktop-portal-wlr"
+exec_after=swaync-client --inhibitor-remove "xdg-desktop-portal-wlr"
 
