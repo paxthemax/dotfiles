@@ -47,6 +47,7 @@ window#waybar {
 #custom-decrypted,
 #custom-updates,
 #custom-mail,
+#idle_inhibitor.activated,
 #custom-vpn.off,
 #battery.warning,
 #disk.warning,
@@ -61,6 +62,7 @@ window#waybar {
 
 #custom-security,
 #custom-systemd,
+#network.disconnected,
 #battery.critical,
 #disk.critical,
 #memory.critical,
@@ -94,6 +96,7 @@ window#waybar {
 #memory,
 #backlight,
 #battery,
+#idle_inhibitor,
 #clock {
   padding: 0 6px;
   margin: 0 6px;
@@ -115,6 +118,7 @@ window#waybar {
 #battery,
 #clock,
 #cpu,
+#idle_inhibitor,
 #custom-eyes,
 #custom-mail,
 #custom-recording,
@@ -130,4 +134,3 @@ window#waybar {
 #pulseaudio {
   color: @foreground;
 }
-
