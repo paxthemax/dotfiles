@@ -5,7 +5,7 @@ sway-audio-idle-inhibit &
 # Timers (seconds):
 lock_time=180 # 3m
 screen_off_time=210 # 3m 30s
-suspend_on_bat_time=300 # 5m
+suspend_on_bat_time=10 # 5m
 suspend_time=7200 # 1h
 
 # Commands:
@@ -14,12 +14,13 @@ lock_cmd='swaylock -f'
 # shellcheck disable=SC2016
 screen_off_cmd='[ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] && hyprctl dispatch dpms off'
 # shellcheck disable=SC2016
-suspend_on_bat_cmd='[ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] exit wm suspend'
+suspend_on_bat_cmd='[ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] && exit-wm suspend'
 suspend_cmd='exit-wm suspend'
 resume_cmd='hyprctl dispatch dpms on'
 
 swayidle -w \
-timeout "$lock_time" "$lock_cmd" resume "$resume_cmd" \
-timeout "$screen_off_time" "$screen_off_cmd" resume "$resume_cmd" \
-timeout "$suspend_on_bat_time" "$suspend_on_bat_cmd" resume "$resume_cmd" \
-timeout "$suspend_time" "$suspend_cmd" resume "$resume_cmd"
+timeout "$lock_time" "$lock_cmd" \
+timeout "$screen_off_time" "$screen_off_cmd" \
+resume "$resume_cmd" \
+timeout "$suspend_on_bat_time" "$suspend_on_bat_cmd" \
+timeout "$suspend_time" "$suspend_cmd"
