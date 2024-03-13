@@ -5,7 +5,7 @@ sway-audio-idle-inhibit &
 # Timers (seconds):
 lock_time=180 # 3m
 screen_off_time=210 # 3m 30s
-suspend_on_bat_time=10 # 5m
+suspend_on_bat_time=600 # 5m
 suspend_time=7200 # 1h
 
 # Commands:
